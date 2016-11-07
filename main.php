@@ -6,7 +6,9 @@ $array = [
 
 	ANIMAL => 'animal',
 	NAME => 'name',
-	'number' => ONE,
-	'second' => TWO
+	'one' => ONE,
+	'two' => TWO
 
 ];
+
+$result = $array['one'] * $array['two'];
