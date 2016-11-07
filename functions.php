@@ -38,3 +38,8 @@ function comparison( $val_1, $val_2, $compare_data_types = false ) {
 	}
 }
 
+comparison(4,"4");
+comparison(5, "5", true);
+comparison(4, 4.0);
+comparison(5, 5.0, true);
+
