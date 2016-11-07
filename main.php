@@ -12,3 +12,5 @@ $array = [
 ];
 
 $result = $array['one'] * $array['two'];
+
+echo "The result of {$array['one']} * {$array['two']} is: {$result}";
