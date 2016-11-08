@@ -2,65 +2,56 @@
 
 class Math {
 	
-	public function add($num1, $num2, ...$nums) {
-		
-		if(count($nums) === 0) {
-			
-			return $num1 + $num2;
-		}else {
-			$numbers = array_merge([$num1, $num2], $nums);
+	const SUBTRACT = '-';
+	const ADD = '+';
+	const MULTIPLY = '*';
+	const DIVIDE = '/';
 
-			return array_reduce($numbers, function($val1, $val2) {
-				return $val1 + $val2;
-			});
-		}
-		
-	}
 
-	public function subtract($num1, $num2, ...$nums) {
-		if(count($nums) === 0) {
-			return $num1 - $num2;
-		}else {
-			$numbers = array_merge([$num2], $nums);
+	private function doOperation($operator, $numbers = [])
+	{
+		$numbers_after_first = array_filter($numbers, function($val, $index) {
+			return $index > 0;
+		}, ARRAY_FILTER_USE_BOTH);
 
-			return array_reduce($numbers, function($val1, $val2){
+		return array_reduce($numbers_after_first, function($val1, $val2) use($operator) {
 				
-				return $val1 - $val2;
+				if($operator == self::ADD) {
+					return $val1 + $val2;
+				}else if($operator == self::SUBTRACT) {
+					return $val1 - $val2;
+				}else if($operator == self::MULTIPLY) {
+					return $val1 * $val2;
+				}else if($operator == self::DIVIDE) {
+					return $val1 / $val2;
+				}
+				
+			}, $numbers[0]);
+	}
 
-			}, $num1);
-
-		}
+	public function add(...$nums)
+	{
+		
+		return $this->doOperation('+', $nums);
 		
 	}
 
-	public function multiply($num1, $num2, ...$nums) {
-		if(count($nums) === 0) {
-			return $num1 * $num2;
-		}else {
+	public function subtract(...$nums) 
+	{
+		return $this->doOperation('-', $nums);
+		
+	}
 
-			$numbers = array_merge([$num2], $nums);
-
-			return array_reduce($numbers, function($val1, $val2){
-
-				return $val1 * $val2;
-			}, $num1);
-		}
+	public function multiply(...$nums) 
+	{
+		return $this->doOperation('*', $nums);
 
 
 	}
 
-	public function divide($num1, $num2, ...$nums) {
-		if(count($nums) === 0) {
-			return $num1 / $num2;
-		}else {
-
-			$numbers = array_merge([$num2], $nums);
-
-			return array_reduce($numbers, function($val1, $val2){
-				return $val1 / $val2;
-			}, $num1);
-
-		}
+	public function divide(...$nums) 
+	{
+		return $this->doOperation('/', $nums);
 	}
 
 }
